@@ -1,11 +1,1333 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Richard Lawrik Automobile</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/MTLLoader.min.js"></script>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #fff;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.8rem 10%;
+        }
+
+        .logo {
+            height: 65px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled .logo {
+            height: 50px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #0047AB;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #0047AB;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: #ffffff;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /*background-color: #000;*/
+            background-image: url(486497620_1068806551956191_8659098765275215101_n.jpg);
+            background-size: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
+            z-index: 1;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.1);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.5s;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.7s;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #0047AB;
+            color: white;
+            font-weight: 600;
+            border-radius: 50px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.9s;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #003380;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 71, 171, 0.3);
+        }
+
+        .hero-car {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            width: 60%;
+            max-width: 600px;
+            opacity: 0;
+            animation: carReveal 1.2s ease forwards 1.2s;
+            z-index: 3;
+        }
+
+        /* About Section */
+        .about {
+            padding: 8rem 10% 4rem;
+            background-color: #fff;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #0047AB;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .about-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+            transform: translateX(-50px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .about-img.active {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text {
+            flex: 1;
+            transform: translateX(50px);
+            opacity: 0;
+            transition: all 0.8s ease 0.2s;
+        }
+
+        .about-text.active {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #0047AB;
+        }
+
+        .about-text p {
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        /* Cars Section */
+        .cars {
+            padding: 4rem 10%;
+            background-color: #f8f9fa;
+        }
+
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .car-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            transform: translateY(30px);
+            opacity: 0;
+        }
+
+        .car-card.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .car-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .car-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .car-card:hover .car-img img {
+            transform: scale(1.1);
+        }
+
+        .car-details {
+            padding: 1.5rem;
+        }
+
+        .car-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .car-price {
+            color: #0047AB;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .car-specs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .car-button {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background-color: #0047AB;
+            color: white;
+            font-weight: 500;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .car-button:hover {
+            background-color: #003380;
+        }
+        
+        /* Kontakt-Sektion */
+        .contact {
+            padding: 6rem 0;
+            background-color: #f8f9fa;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.05) 0%, rgba(255, 255, 255, 0) 50%);
+            z-index: 1;
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .contact-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #0047AB;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-content {
+            display: flex;
+            justify-content: center;
+        }
+        
+        /* Gemeinsamer Container */
+        .contact-form-container {
+            width: 100%;
+            max-width: 1100px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form-container:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .form-info-wrapper {
+            display: flex;
+            gap: 3rem;
+        }
+        
+        /* Formular-Bereich */
+        .form-wrapper {
+            flex: 3;
+        }
+        
+        .form-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .form-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #0047AB;
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .form-field {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-field.full-width {
+            width: 100%;
+        }
+        
+        .form-field label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-field input,
+        .form-field textarea {
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-field input:focus,
+        .form-field textarea:focus {
+            border-color: #0047AB;
+            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.2);
+            outline: none;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 3px;
+        }
+        
+        .checkbox-container label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .checkbox-container a {
+            color: #0047AB;
+            text-decoration: underline;
+        }
+        
+        .submit-field {
+            margin-top: 1rem;
+        }
+        
+        .submit-btn {
+            padding: 1rem 2rem;
+            background-color: #0047AB;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: #003380;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 71, 171, 0.4);
+        }
+        
+        /* Info-Bereich */
+        .info-wrapper {
+            flex: 2;
+            border-left: 1px solid #eee;
+            padding-left: 2rem;
+        }
+        
+        .info-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .info-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #0047AB;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .contact-card {
+            display: flex;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateX(5px);
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0047AB;
+            color: white;
+            border-radius: 50%;
+            margin-right: 1rem;
+            font-size: 1rem;
+        }
+        
+        .contact-details h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: #333;
+        }
+        
+        .contact-details p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 992px) {
+            .form-info-wrapper {
+                flex-direction: column;
+                gap: 3rem;
+            }
+            
+            .info-wrapper {
+                border-left: none;
+                border-top: 1px solid #eee;
+                padding-left: 0;
+                padding-top: 2rem;
+            }
+            
+            .form-group {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .contact {
+                padding: 4rem 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .contact-form-container {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .contact-container {
+                padding: 0 1rem;
+            }
+            
+            .submit-btn {
+                width: 100%;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 4rem 10% 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo img {
+            height: 60px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: -7px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #0047AB;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #0047AB;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            color: #ccc;
+        }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes carReveal {
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Parallax Effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 50%;
+            height: 400px;
+            position: relative;
+            margin: 4rem 0;
+        }
+
+        #ersterParalax{
+            background-color: black;
+        }
+
+        
+
+        .parallax-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .parallax-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .parallax-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .parallax::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 1024px) {
+            .about-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .about-img, .about-text {
+                transform: translateX(0);
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .navbar {
+                padding: 1rem 5%;
+            }
+            
+            .nav-links {
+                position: absolute;
+                right: 0;
+                top: 70px;
+                background-color: white;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transform: translateY(-150%);
+                transition: transform 0.5s ease;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                gap: 1.5rem;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-car {
+                width: 80%;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .parallax-content h2 {
+                font-size: 2rem;
+            }
+            
+            .parallax-content p {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#" class="logo-container">
+            <img src="/richard_lawrick-2.jpg" alt="Richard Lawrik Automobile Logo" class="logo">
+        </a>
+        <div class="nav-links">
+            <a href="#home">Startseite</a>
+            <a href="#about">Über uns</a>
+            <a href="#cars">Fahrzeuge</a>
+            <a href="#contact">Kontakt</a>
+        </div>
+        <div class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Richard Lawrik Automobile</h1>
+            <p class="hero-subtitle">Ehrlich. Persönlich. Nah. - Ihr Autohändler mit Herz.</p>
+            <a href="#cars" class="cta-button">Unsere Fahrzeuge entdecken</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2 class="section-title">Über uns</h2>
+        <div class="about-content">
+            <div class="about-img">
+                <img src="/richard_pb.png" alt="Richard Lawrik">
+            </div>
+            <div class="about-text">
+                <h3>Ihre Zufriedenheit ist unser Erfolg</h3>
+                <p>Willkommen bei Richard Lawrik Automobile – Ihrem vertrauensvollen Partner für exklusive Fahrzeuge in Dortmund. Mit über 15 Jahren Erfahrung im Premium-Automobilsegment bieten wir Ihnen eine handverlesene Auswahl an hochwertigen Fahrzeugen und einen Service, der keine Wünsche offen lässt.</p>
+                <p>Unser Anspruch ist es, die Erwartungen unserer anspruchsvollen Kundschaft nicht nur zu erfüllen, sondern zu übertreffen. Jedes Fahrzeug in unserem Bestand wird sorgfältig ausgewählt und durchläuft eine umfassende Qualitätsprüfung, bevor es zum Verkauf angeboten wird.</p>
+                <p>Vereinbaren Sie einen persönlichen Termin und erleben Sie Premium-Automobile in einer entspannten Atmosphäre, gepaart mit kompetenter Beratung. Bei Richard Lawrik Automobile finden Sie nicht nur Ihr Traumauto, sondern einen Partner, der Sie auf Ihrem Weg zum perfekten Fahrerlebnis begleitet.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Section -->
+    <div class="parallax" id="ersterParalax" style="background-image: url('richard_lawrick.jpeg');">
+        <div class="parallax-content">
+            <h2>Premium Fahrzeuge</h2>
+            <p>Entdecken Sie unsere exklusive Auswahl an hochwertigen Automobilen</p>
+            <a href="#cars" class="cta-button">Jetzt ansehen</a>
+        </div>
+    </div>
+
+    <!-- Cars Section -->
+    <section class="cars" id="cars">
+        <h2 class="section-title">Unsere Fahrzeuge</h2>
+        <div class="cars-grid">
+            <!-- Car 1 -->
+            <div class="car-card">
+                <div class="car-img">
+                    <img src="/7Kq61vOgomUtmTEPwV9wNw-5ddd910e5ace8c84bf0ff93fb0d6b297-Mercedes-Benz-S-500-Lang-Hero-1100.png" alt="Mercedes-Benz S-Class">
+                </div>
+                <div class="car-details">
+                    <h3 class="car-title">Mercedes-Benz S 500</h3>
+                    <p class="car-price">€89.900</p>
+                    <div class="car-specs">
+                        <span>2023</span>
+                        <span>15.000 km</span>
+                        <span>450 PS</span>
+                    </div>
+                    <a href="#" class="car-button">Details</a>
+                </div>
+            </div>
+
+            <!-- Car 2 -->
+            <div class="car-card">
+                <div class="car-img">
+                    <img src="/106318233-15779755475172020bmw750i02.jpg" alt="BMW 7 Series">
+                </div>
+                <div class="car-details">
+                    <h3 class="car-title">BMW 750i xDrive</h3>
+                    <p class="car-price">€94.500</p>
+                    <div class="car-specs">
+                        <span>2022</span>
+                        <span>20.500 km</span>
+                        <span>530 PS</span>
+                    </div>
+                    <a href="#" class="car-button">Details</a>
+                </div>
+            </div>
+
+            <!-- Car 3 -->
+            <div class="car-card">
+                <div class="car-img">
+                    <img src="/Audi-RS6-Avant-Rendering-34-Front.jpg.avif" alt="Audi RS6">
+                </div>
+                <div class="car-details">
+                    <h3 class="car-title">Audi RS6 Avant</h3>
+                    <p class="car-price">€119.900</p>
+                    <div class="car-specs">
+                        <span>2023</span>
+                        <span>8.500 km</span>
+                        <span>600 PS</span>
+                    </div>
+                    <a href="#" class="car-button">Details</a>
+                </div>
+            </div>
+
+            <!-- Car 4 -->
+            <div class="car-card">
+                <div class="car-img">
+                    <img src="/iris.webp" alt="Porsche 911">
+                </div>
+                <div class="car-details">
+                    <h3 class="car-title">Porsche 911 Turbo S</h3>
+                    <p class="car-price">€199.900</p>
+                    <div class="car-specs">
+                        <span>2022</span>
+                        <span>12.000 km</span>
+                        <span>650 PS</span>
+                    </div>
+                    <a href="#" class="car-button">Details</a>
+                </div>
+            </div>
+
+            <!-- Car 5 -->
+            <div class="car-card">
+                <div class="car-img">
+                    <img src="/images.jpeg" alt="Range Rover Sport">
+                </div>
+                <div class="car-details">
+                    <h3 class="car-title">Range Rover Sport P530</h3>
+                    <p class="car-price">€129.900</p>
+                    <div class="car-specs">
+                        <span>2023</span>
+                        <span>18.000 km</span>
+                        <span>530 PS</span>
+                    </div>
+                    <a href="#" class="car-button">Details</a>
+                </div>
+            </div>
+
+            <!-- Car 6 -->
+            <div class="car-card">
+                <div class="car-img">
+                    <img src="/2047884.avif" alt="Bentley Continental GT">
+                </div>
+                <div class="car-details">
+                    <h3 class="car-title">Bentley Continental GT</h3>
+                    <p class="car-price">€209.900</p>
+                    <div class="car-specs">
+                        <span>2021</span>
+                        <span>22.000 km</span>
+                        <span>635 PS</span>
+                    </div>
+                    <a href="#" class="car-button">Details</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Second Parallax Section -->
+    <div class="parallax" style="background-image: url('/mobile.de_Logo_Claim.jpg');">
+        <div class="parallax-content">
+            <h2>Auch auf Mobile.de</h2>
+            <a href="https://suchen.mobile.de/fahrzeuge/search.html?asl=true&cn=DE&dam=false&gn=33100%2C+Paderborn%2C+Nordrhein-Westfalen&isSearchRequest=true&ll=51.7212792%2C8.8341562&p=%3A1800&rd=100&ref=quickSearch&s=Car&sb=rel&vc=Car" class="cta-button">Mobile.de öffnen</a>
+        </div>
+    </div>
+    <!-- Kontakt-Sektion -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-header">
+                <h2 class="section-title">Kontakt</h2>
+                <p class="section-subtitle">Wir freuen uns auf Ihre Anfrage</p>
+            </div>
+            
+            <div class="contact-content">
+                <!-- Gemeinsamer Container für Kontaktformular und Infos -->
+                <div class="contact-form-container">
+                    <div class="form-info-wrapper">
+                        <!-- Kontaktformular -->
+                        <div class="form-wrapper">
+                            <h3 class="form-title">Ihre Nachricht an uns</h3>
+                            <form id="contactForm" class="contact-form" action="https://formsubmit.co/info@richardlawrik.de" method="POST">
+                                <!-- FormSubmit Konfiguration -->
+                                <input type="hidden" name="_subject" value="Neue Anfrage von der Website">
+                                <input type="hidden" name="_captcha" value="false">
+                                <input type="hidden" name="_next" value="https://richardlawrik.de/danke">
+                                
+                                <div class="form-group">
+                                    <div class="form-field">
+                                        <label for="name">Name*</label>
+                                        <input type="text" id="name" name="name" required>
+                                    </div>
+                                    
+                                    <div class="form-field">
+                                        <label for="email">E-Mail*</label>
+                                        <input type="email" id="email" name="email" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="form-field">
+                                        <label for="phone">Telefon</label>
+                                        <input type="tel" id="phone" name="phone">
+                                    </div>
+                                    
+                                    <div class="form-field">
+                                        <label for="subject">Betreff*</label>
+                                        <input type="text" id="subject" name="_subject" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-field full-width">
+                                    <label for="message">Nachricht*</label>
+                                    <textarea id="message" name="message" rows="6" required></textarea>
+                                </div>
+                                
+                                <div class="form-field full-width">
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="privacy" name="privacy" required>
+                                        <label for="privacy">Ich habe die <a href="#datenschutz">Datenschutzbestimmungen</a> gelesen und akzeptiert.*</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-field submit-field">
+                                    <button type="submit" class="submit-btn">Nachricht senden</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Kontaktinformationen -->
+                        <div class="info-wrapper">
+                            <h3 class="info-title">Kontaktinformationen</h3>
+                            <div class="contact-info">
+                                <div class="contact-card">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4>Adresse</h4>
+                                        <p>Mustermann-Straße 123<br>44137 Dortmund</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-card">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4>Telefon</h4>
+                                        <p>+49 (0) 231 12345678</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-card">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4>E-Mail</h4>
+                                        <p>info@richardlawrik.de</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-card">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4>Öffnungszeiten</h4>
+                                        <p>Mo - Fr: 9:00 - 18:00 Uhr<br>Sa: 10:00 - 14:00 Uhr</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="/api/placeholder/200/80" alt="Richard Lawrik Automobile Logo">
+                <p>Richard Lawrik Automobile steht für Exklusivität, Qualität und erstklassigen Service. Kontaktieren Sie uns noch heute für Ihr Traumfahrzeug.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#home">Startseite</a></li>
+                    <li><a href="#about">Über uns</a></li>
+                    <li><a href="#cars">Fahrzeuge</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Fahrzeugverkauf</a></li>
+                    <li><a href="#">Finanzierung</a></li>
+                    <li><a href="#">Garantieverlängerung</a></li>
+                    <li><a href="#">Fahrzeugankauf</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Kontakt</h4>
+                <p>Mustermann-Straße 123</p>
+                <p>44137 Dortmund</p>
+                <p>Tel: +49 (0) 231 12345678</p>
+                <p>Email: info@richardlawrik.de</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Richard Lawrik Automobile. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Parallax effect for hero background
+            const heroSection = document.querySelector('.hero-bg');
+            const scrollValue = window.scrollY;
+            heroSection.style.transform = `scale(1.1) translateY(${scrollValue * 0.3}px)`;
+            
+            // Reveal animations on scroll
+            const reveals = document.querySelectorAll('.about-img, .about-text, .car-card');
+            reveals.forEach(reveal => {
+                const revealTop = reveal.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                const revealPoint = 150;
+                
+                if (revealTop < windowHeight - revealPoint) {
+                    reveal.classList.add('active');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
+            });
+        });
+
+        // Einfache Formularvalidierung
+    document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.getElementById('contactForm');
+        
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                const name = document.getElementById('name');
+                const email = document.getElementById('email');
+                const subject = document.getElementById('subject');
+                const message = document.getElementById('message');
+                const privacy = document.getElementById('privacy');
+                
+                let isValid = true;
+                
+                // Einfache Validierung
+                if (name.value.trim() === '') {
+                    isValid = false;
+                    highlightField(name);
+                }
+                
+                if (email.value.trim() === '' || !isValidEmail(email.value)) {
+                    isValid = false;
+                    highlightField(email);
+                }
+                
+                if (subject.value.trim() === '') {
+                    isValid = false;
+                    highlightField(subject);
+                }
+                
+                if (message.value.trim() === '') {
+                    isValid = false;
+                    highlightField(message);
+                }
+                
+                if (!privacy.checked) {
+                    isValid = false;
+                    highlightField(privacy);
+                }
+                
+                if (!isValid) {
+                    e.preventDefault();
+                    alert('Bitte füllen Sie alle erforderlichen Felder korrekt aus.');
+                }
+            });
+        }
+        
+        // Validierungsfunktionen
+        function isValidEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+        
+        function highlightField(field) {
+            field.style.borderColor = '#ff3860';
+            
+            field.addEventListener('input', function() {
+                field.style.borderColor = '#ddd';
+            }, { once: true });
+        }
+    });
+    </script>
 </body>
 </html>
