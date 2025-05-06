@@ -42,7 +42,7 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background-color: rgba(0, 0, 0, 0.95);
+            background-color: rgba(0, 0, 0, 1);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
@@ -113,7 +113,6 @@
             justify-content: center;
             align-items: center;
             /*background-color: #000;*/
-            background-image: url(486497620_1068806551956191_8659098765275215101_n.jpg);
             background-size: 100%;
             position: relative;
             overflow: hidden;
@@ -136,11 +135,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('/api/placeholder/1920/1080');
+            background-image: url('486497620_1068806551956191_8659098765275215101_n.jpg');
             background-size: cover;
             background-position: center;
             transform: scale(1.1);
-            transition: transform 0.5s ease;
+            transition: transform 0.1s ease;
         }
 
         .hero-content {
@@ -407,10 +406,10 @@
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -15px;
+            bottom: -5px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
+            width: 100px;
             height: 3px;
             background-color: #0047AB;
         }
@@ -824,6 +823,8 @@
             .navbar {
                 padding: 1rem 5%;
             }
+
+    
             
             .nav-links {
                 position: absolute;
@@ -878,6 +879,9 @@
                 padding: 0.8rem 1.5rem;
             }
             
+            .parallax{
+                
+            }
             .parallax-content h2 {
                 font-size: 2rem;
             }
@@ -913,7 +917,8 @@
         <div class="hero-content">
             <h1 class="hero-title">Richard Lawrik Automobile</h1>
             <p class="hero-subtitle">Ehrlich. Persönlich. Nah. - Ihr Autohändler mit Herz.</p>
-            <a href="#cars" class="cta-button">Unsere Fahrzeuge entdecken</a>
+            <a href="#cars" class="cta-button">Fahrzeuge Entdecken</a>
+            <a href="#selling" class="cta-button">Fahrzeug Verkaufen</a>
         </div>
     </section>
 
@@ -925,7 +930,7 @@
                 <img src="/richard_pb.png" alt="Richard Lawrik">
             </div>
             <div class="about-text">
-                <h3>Ihre Zufriedenheit ist unser Erfolg</h3>
+                <h3>Ihre Zufriedenheit ist mein Erfolg</h3>
                 <p>Willkommen bei Richard Lawrik Automobile – Ihrem vertrauensvollen Partner für exklusive Fahrzeuge in Dortmund. Mit über 15 Jahren Erfahrung im Premium-Automobilsegment bieten wir Ihnen eine handverlesene Auswahl an hochwertigen Fahrzeugen und einen Service, der keine Wünsche offen lässt.</p>
                 <p>Unser Anspruch ist es, die Erwartungen unserer anspruchsvollen Kundschaft nicht nur zu erfüllen, sondern zu übertreffen. Jedes Fahrzeug in unserem Bestand wird sorgfältig ausgewählt und durchläuft eine umfassende Qualitätsprüfung, bevor es zum Verkauf angeboten wird.</p>
                 <p>Vereinbaren Sie einen persönlichen Termin und erleben Sie Premium-Automobile in einer entspannten Atmosphäre, gepaart mit kompetenter Beratung. Bei Richard Lawrik Automobile finden Sie nicht nur Ihr Traumauto, sondern einen Partner, der Sie auf Ihrem Weg zum perfekten Fahrerlebnis begleitet.</p>
@@ -1062,7 +1067,7 @@
         <div class="contact-container">
             <div class="contact-header">
                 <h2 class="section-title">Kontakt</h2>
-                <p class="section-subtitle">Wir freuen uns auf Ihre Anfrage</p>
+                <p class="section-subtitle">Ich freue mich auf Ihre Anfrage</p>
             </div>
             
             <div class="contact-content">
@@ -1071,8 +1076,8 @@
                     <div class="form-info-wrapper">
                         <!-- Kontaktformular -->
                         <div class="form-wrapper">
-                            <h3 class="form-title">Ihre Nachricht an uns</h3>
-                            <form id="contactForm" class="contact-form" action="https://formsubmit.co/info@richardlawrik.de" method="POST">
+                            <h3 class="form-title">Ihre Nachricht an mich</h3>
+                            <form id="contactForm" class="contact-form" action="https://formsubmit.co/zm.webstudios@gmail.com" method="POST">
                                 <!-- FormSubmit Konfiguration -->
                                 <input type="hidden" name="_subject" value="Neue Anfrage von der Website">
                                 <input type="hidden" name="_captcha" value="false">
