@@ -214,7 +214,6 @@
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
             width: 80px;
@@ -394,6 +393,10 @@
             text-align: center;
             margin-bottom: 4rem;
         }
+
+        .contact-header p{
+            margin-bottom: 8px;
+        }
         
         .section-title {
             font-size: 2.5rem;
@@ -446,226 +449,448 @@
             gap: 3rem;
         }
         
-        /* Formular-Bereich */
-        .form-wrapper {
-            flex: 3;
+    /* Kontakt-Sektion */
+    .contact {
+        padding: 6rem 0;
+        background-color: #f8f9fa;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .contact::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(0, 71, 171, 0.05) 0%, rgba(255, 255, 255, 0) 50%);
+        z-index: 1;
+    }
+    
+    .contact-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .contact-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #333;
+        position: relative;
+        display: inline-block;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: #0047AB;
+    }
+    
+    .section-subtitle {
+        font-size: 1.2rem;
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+/* Toggle-Switch für Formulartyp */
+    .form-type-toggle {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+    
+    .toggle-container {
+        position: relative;
+        background-color: #f1f1f1;
+        border-radius: 30px;
+        display: inline-flex;
+        padding: 4px;
+        margin: 0 auto;
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 200px;
+        height: 36px;
+    }
+    
+    .toggle-container input[type="radio"] {
+        display: none;
+    }
+    
+    .toggle-container label {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        height: 100%;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #666;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        text-align: center;
+    }
+    
+    .toggle-container input[type="radio"]:checked + label {
+        color: #ffffff;
+    }
+    
+    .toggle-container .slider {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: calc(50% - 4px);
+        height: calc(100% - 8px);
+        background-color: #0047AB;
+        border-radius: 25px;
+        transition: transform 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    #sell-toggle:checked ~ .slider {
+        transform: translateX(calc(100% + 0px));
+    }
+    
+    /* Responsive Anpassungen */
+    @media screen and (max-width: 480px) {
+        .toggle-container {
+            width: 180px;
+            height: 32px;
         }
         
-        .form-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: #333;
-            position: relative;
-            padding-bottom: 0.5rem;
+        .toggle-container label {
+            font-size: 0.8rem;
         }
-        
-        .form-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: #0047AB;
-        }
-        
-        .contact-form {
-            display: flex;
+    }
+    
+    /* Kontakt-Container und Grid */
+    .contact-content {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .contact-form-container {
+        width: 100%;
+        max-width: 1100px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        padding: 2.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .contact-form-container:hover {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    }
+    
+    .form-info-wrapper {
+        display: flex;
+        gap: 3rem;
+    }
+    
+    /* Formular-Bereiche */
+    .form-wrapper {
+        flex: 3;
+    }
+    
+    .form-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: #333;
+        position: relative;
+        padding-bottom: 0.5rem;
+    }
+    
+    .form-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background-color: #0047AB;
+    }
+    
+    .form-section {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .form-section h4 {
+        font-size: 1.2rem;
+        margin-bottom: 1.2rem;
+        color: #0047AB;
+    }
+    
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .form-group {
+        display: flex;
+        gap: 1.5rem;
+    }
+    
+    .form-field {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .form-field.full-width {
+        width: 100%;
+    }
+    
+    .form-field label {
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #555;
+    }
+    
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+        padding: 0.8rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus {
+        border-color: #0047AB;
+        box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.2);
+        outline: none;
+    }
+    
+    /* Datei-Upload Bereich */
+    .file-upload-container {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .file-upload-area {
+        position: relative;
+        width: 100%;
+        min-height: 150px;
+        border: 2px dashed #0047AB;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .file-upload-area:hover {
+        background-color: rgba(0, 71, 171, 0.05);
+    }
+    
+    .file-upload-area.drag-over {
+        background-color: rgba(0, 71, 171, 0.1);
+        border-color: #003380;
+    }
+    
+    .upload-icon {
+        font-size: 3rem;
+        color: #0047AB;
+        margin-bottom: 1rem;
+    }
+    
+    .file-upload-area p {
+        margin: 0.5rem 0;
+        color: #666;
+    }
+    
+    .file-info {
+        font-size: 0.9rem;
+        color: #999;
+    }
+    
+    .file-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+    
+    .file-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .file-item {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .file-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .file-remove {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 20px;
+        height: 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 0.8rem;
+        color: #ff3860;
+    }
+    
+    /* Checkbox-Container */
+    .checkbox-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .checkbox-container input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-top: 3px;
+    }
+    
+    .checkbox-container label {
+        font-size: 0.9rem;
+        color: #666;
+    }
+    
+    .checkbox-container a {
+        color: #0047AB;
+        text-decoration: underline;
+    }
+    
+    .submit-field {
+        margin-top: 1rem;
+    }
+    
+    .submit-btn {
+        padding: 1rem 2rem;
+        background-color: #0047AB;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .submit-btn:hover {
+        background-color: #003380;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 71, 171, 0.4);
+    }
+
+    
+    /* Responsive Design */
+    @media screen and (max-width: 992px) {
+        .form-info-wrapper {
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 3rem;
+        }
+        
+        .info-wrapper {
+            border-left: none;
+            border-top: 1px solid #eee;
+            padding-left: 0;
+            padding-top: 2rem;
         }
         
         .form-group {
-            display: flex;
-            gap: 1.5rem;
-        }
-        
-        .form-field {
-            flex: 1;
-            display: flex;
             flex-direction: column;
+            gap: 1rem;
         }
         
-        .form-field.full-width {
+        .toggle-container label {
+            min-width: 130px;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+        }
+        
+        .toggle-container .slider {
+            width: 130px;
+        }
+    }
+    
+    @media screen and (max-width: 768px) {
+        .contact {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .contact-form-container {
+            padding: 1.5rem;
+        }
+        
+        .toggle-container {
             width: 100%;
         }
         
-        .form-field label {
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #555;
+        .toggle-container label {
+            flex: 1;
         }
         
-        .form-field input,
-        .form-field textarea {
-            padding: 0.8rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+        .toggle-container .slider {
+            width: calc(50% - 5px);
         }
-        
-        .form-field input:focus,
-        .form-field textarea:focus {
-            border-color: #0047AB;
-            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.2);
-            outline: none;
-        }
-        
-        .checkbox-container {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-        
-        .checkbox-container input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin-top: 3px;
-        }
-        
-        .checkbox-container label {
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        .checkbox-container a {
-            color: #0047AB;
-            text-decoration: underline;
-        }
-        
-        .submit-field {
-            margin-top: 1rem;
+    }
+    
+    @media screen and (max-width: 480px) {
+        .contact-container {
+            padding: 0 1rem;
         }
         
         .submit-btn {
-            padding: 1rem 2rem;
-            background-color: #0047AB;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            width: 100%;
         }
-        
-        .submit-btn:hover {
-            background-color: #003380;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 71, 171, 0.4);
-        }
-        
-        /* Info-Bereich */
-        .info-wrapper {
-            flex: 2;
-            border-left: 1px solid #eee;
-            padding-left: 2rem;
-        }
-        
-        .info-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: #333;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .info-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: #0047AB;
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .contact-card {
-            display: flex;
-            align-items: flex-start;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-card:hover {
-            transform: translateX(5px);
-        }
-        
-        .contact-icon {
-            width: 40px;
-            height: 40px;
-            min-width: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #0047AB;
-            color: white;
-            border-radius: 50%;
-            margin-right: 1rem;
-            font-size: 1rem;
-        }
-        
-        .contact-details h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.3rem;
-            color: #333;
-        }
-        
-        .contact-details p {
-            color: #666;
-            line-height: 1.6;
-        }
-        
-        /* Responsive Design */
-        @media screen and (max-width: 992px) {
-            .form-info-wrapper {
-                flex-direction: column;
-                gap: 3rem;
-            }
-            
-            .info-wrapper {
-                border-left: none;
-                border-top: 1px solid #eee;
-                padding-left: 0;
-                padding-top: 2rem;
-            }
-            
-            .form-group {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
-        
-        @media screen and (max-width: 768px) {
-            .contact {
-                padding: 4rem 0;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .contact-form-container {
-                padding: 1.5rem;
-            }
-        }
-        
-        @media screen and (max-width: 480px) {
-            .contact-container {
-                padding: 0 1rem;
-            }
-            
-            .submit-btn {
-                width: 100%;
-            }
-        }
+    }
+
 
         /* Footer */
         .footer {
@@ -879,9 +1104,6 @@
                 padding: 0.8rem 1.5rem;
             }
             
-            .parallax{
-                
-            }
             .parallax-content h2 {
                 font-size: 2rem;
             }
@@ -1067,108 +1289,232 @@
         <div class="contact-container">
             <div class="contact-header">
                 <h2 class="section-title">Kontakt</h2>
-                <p class="section-subtitle">Ich freue mich auf Ihre Anfrage</p>
-            </div>
-            
-            <div class="contact-content">
+                <p class="section-subtitle">Wir freuen uns auf Ihre Anfrage</p>
+                <!-- Toggle-Switch für Kontaktformular -->
+                <div class="form-type-toggle">
+                    <div class="toggle-container">
+                        <input type="radio" id="buy-toggle" name="form-type" value="kaufen" checked>
+                        <label for="buy-toggle">Kaufen</label>
+                        <input type="radio" id="sell-toggle" name="form-type" value="verkaufen">
+                        <label for="sell-toggle">Verkaufen</label>
+                        <div class="slider"></div>
+                    </div>
+                </div>
                 <!-- Gemeinsamer Container für Kontaktformular und Infos -->
                 <div class="contact-form-container">
                     <div class="form-info-wrapper">
-                        <!-- Kontaktformular -->
-                        <div class="form-wrapper">
-                            <h3 class="form-title">Ihre Nachricht an mich</h3>
-                            <form id="contactForm" class="contact-form" action="https://formsubmit.co/zm.webstudios@gmail.com" method="POST">
+                        <!-- Kontaktformular - Kaufen (Standard) -->
+                        <div class="form-wrapper" id="buy-form">
+                            <h3 class="form-title">Fahrzeug kaufen</h3>
+                            <form id="contactFormBuy" class="contact-form" action="https://formsubmit.co/info@richardlawrik.de" method="POST">
                                 <!-- FormSubmit Konfiguration -->
-                                <input type="hidden" name="_subject" value="Neue Anfrage von der Website">
+                                <input type="hidden" name="_subject" value="Kaufanfrage von der Website">
                                 <input type="hidden" name="_captcha" value="false">
                                 <input type="hidden" name="_next" value="https://richardlawrik.de/danke">
+                                <input type="hidden" name="formType" value="Kaufanfrage">
                                 
                                 <div class="form-group">
                                     <div class="form-field">
-                                        <label for="name">Name*</label>
-                                        <input type="text" id="name" name="name" required>
+                                        <label for="name-buy">Name*</label>
+                                        <input type="text" id="name-buy" name="name" required>
                                     </div>
                                     
                                     <div class="form-field">
-                                        <label for="email">E-Mail*</label>
-                                        <input type="email" id="email" name="email" required>
+                                        <label for="email-buy">E-Mail*</label>
+                                        <input type="email" id="email-buy" name="email" required>
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <div class="form-field">
-                                        <label for="phone">Telefon</label>
-                                        <input type="tel" id="phone" name="phone">
+                                        <label for="phone-buy">Telefon</label>
+                                        <input type="tel" id="phone-buy" name="phone">
                                     </div>
                                     
                                     <div class="form-field">
-                                        <label for="subject">Betreff*</label>
-                                        <input type="text" id="subject" name="_subject" required>
+                                        <label for="interest-buy">Interessiertes Modell</label>
+                                        <input type="text" id="interest-buy" name="interest">
                                     </div>
                                 </div>
                                 
                                 <div class="form-field full-width">
-                                    <label for="message">Nachricht*</label>
-                                    <textarea id="message" name="message" rows="6" required></textarea>
+                                    <label for="message-buy">Nachricht*</label>
+                                    <textarea id="message-buy" name="message" rows="6" required></textarea>
                                 </div>
                                 
                                 <div class="form-field full-width">
                                     <div class="checkbox-container">
-                                        <input type="checkbox" id="privacy" name="privacy" required>
-                                        <label for="privacy">Ich habe die <a href="#datenschutz">Datenschutzbestimmungen</a> gelesen und akzeptiert.*</label>
+                                        <input type="checkbox" id="privacy-buy" name="privacy" required>
+                                        <label for="privacy-buy">Ich habe die <a href="#datenschutz">Datenschutzbestimmungen</a> gelesen und akzeptiert.*</label>
                                     </div>
                                 </div>
                                 
                                 <div class="form-field submit-field">
-                                    <button type="submit" class="submit-btn">Nachricht senden</button>
+                                    <button type="submit" class="submit-btn">Anfrage senden</button>
                                 </div>
                             </form>
                         </div>
                         
-                        <!-- Kontaktinformationen -->
-                        <div class="info-wrapper">
-                            <h3 class="info-title">Kontaktinformationen</h3>
-                            <div class="contact-info">
-                                <div class="contact-card">
-                                    <div class="contact-icon">
-                                        <i class="fas fa-map-marker-alt"></i>
+                        <!-- Kontaktformular - Verkaufen (Erweitert) -->
+                        <div class="form-wrapper" id="sell-form" style="display: none;">
+                            <h3 class="form-title">Fahrzeug verkaufen</h3>
+                            <form id="contactFormSell" class="contact-form" action="https://formsubmit.co/info@richardlawrik.de" method="POST" enctype="multipart/form-data">
+                                <!-- FormSubmit Konfiguration -->
+                                <input type="hidden" name="_subject" value="Verkaufsanfrage von der Website">
+                                <input type="hidden" name="_captcha" value="false">
+                                <input type="hidden" name="_next" value="https://richardlawrik.de/danke">
+                                <input type="hidden" name="formType" value="Verkaufsanfrage">
+                                
+                                <div class="form-section">
+                                    <h4>Ihre Kontaktdaten</h4>
+                                    <div class="form-group">
+                                        <div class="form-field">
+                                            <label for="name-sell">Name*</label>
+                                            <input type="text" id="name-sell" name="name" required>
+                                        </div>
+                                        
+                                        <div class="form-field">
+                                            <label for="email-sell">E-Mail*</label>
+                                            <input type="email" id="email-sell" name="email" required>
+                                        </div>
                                     </div>
-                                    <div class="contact-details">
-                                        <h4>Adresse</h4>
-                                        <p>Mustermann-Straße 123<br>44137 Dortmund</p>
+                                    
+                                    <div class="form-group">
+                                        <div class="form-field">
+                                            <label for="phone-sell">Telefon*</label>
+                                            <input type="tel" id="phone-sell" name="phone" required>
+                                        </div>
+                                        
+                                        <div class="form-field">
+                                            <label for="address-sell">Adresse</label>
+                                            <input type="text" id="address-sell" name="address">
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                <div class="contact-card">
-                                    <div class="contact-icon">
-                                        <i class="fas fa-phone-alt"></i>
+                                <div class="form-section">
+                                    <h4>Fahrzeug-Details</h4>
+                                    <div class="form-group">
+                                        <div class="form-field">
+                                            <label for="make-sell">Marke*</label>
+                                            <input type="text" id="make-sell" name="make" required>
+                                        </div>
+                                        
+                                        <div class="form-field">
+                                            <label for="model-sell">Modell*</label>
+                                            <input type="text" id="model-sell" name="model" required>
+                                        </div>
                                     </div>
-                                    <div class="contact-details">
-                                        <h4>Telefon</h4>
-                                        <p>+49 (0) 231 12345678</p>
+                                    
+                                    <div class="form-group">
+                                        <div class="form-field">
+                                            <label for="year-sell">Baujahr*</label>
+                                            <input type="number" id="year-sell" name="year" min="1900" max="2030" required>
+                                        </div>
+                                        
+                                        <div class="form-field">
+                                            <label for="mileage-sell">Kilometerstand*</label>
+                                            <input type="number" id="mileage-sell" name="mileage" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <div class="form-field">
+                                            <label for="power-sell">Leistung (PS)</label>
+                                            <input type="number" id="power-sell" name="power">
+                                        </div>
+                                        
+                                        <div class="form-field">
+                                            <label for="fuel-sell">Kraftstoff*</label>
+                                            <select id="fuel-sell" name="fuel" required>
+                                                <option value="">Bitte auswählen</option>
+                                                <option value="Benzin">Benzin</option>
+                                                <option value="Diesel">Diesel</option>
+                                                <option value="Elektro">Elektro</option>
+                                                <option value="Hybrid">Hybrid</option>
+                                                <option value="Wasserstoff">Wasserstoff</option>
+                                                <option value="Erdgas">Erdgas</option>
+                                                <option value="Autogas">Autogas</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <div class="form-field">
+                                            <label for="transmission-sell">Getriebe*</label>
+                                            <select id="transmission-sell" name="transmission" required>
+                                                <option value="">Bitte auswählen</option>
+                                                <option value="Automatik">Automatik</option>
+                                                <option value="Schaltgetriebe">Schaltgetriebe</option>
+                                                <option value="Halbautomatik">Halbautomatik</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-field">
+                                            <label for="color-sell">Farbe</label>
+                                            <input type="text" id="color-sell" name="color">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-field full-width">
+                                        <label for="vin-sell">Fahrgestellnummer (VIN)*</label>
+                                        <input type="text" id="vin-sell" name="vin" required>
+                                    </div>
+                                    
+                                    <div class="form-field full-width">
+                                        <label for="condition-sell">Zustand*</label>
+                                        <select id="condition-sell" name="condition" required>
+                                            <option value="">Bitte auswählen</option>
+                                            <option value="Neuwertig">Neuwertig</option>
+                                            <option value="Sehr gut">Sehr gut</option>
+                                            <option value="Gut">Gut</option>
+                                            <option value="Gebrauchtspuren">Mit Gebrauchtspuren</option>
+                                            <option value="Unfallfahrzeug">Unfallfahrzeug</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-field full-width">
+                                        <label for="features-sell">Ausstattung & Besonderheiten</label>
+                                        <textarea id="features-sell" name="features" rows="4"></textarea>
+                                    </div>
+                                    
+                                    <div class="form-field full-width">
+                                        <label for="price-sell">Preisvorstellung (€)</label>
+                                        <input type="number" id="price-sell" name="price">
                                     </div>
                                 </div>
                                 
-                                <div class="contact-card">
-                                    <div class="contact-icon">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-                                    <div class="contact-details">
-                                        <h4>E-Mail</h4>
-                                        <p>info@richardlawrik.de</p>
+                                <div class="form-section">
+                                    <h4>Bilder hochladen</h4>
+                                    <div class="form-field full-width">
+                                        <div class="file-upload-container">
+                                            <div class="file-upload-area" id="upload-area">
+                                                <i class="upload-icon fas fa-cloud-upload-alt"></i>
+                                                <p>Dateien hierher ziehen oder klicken zum Auswählen</p>
+                                                <p class="file-info">Bis zu 6 Bilder (max. 5MB pro Bild)</p>
+                                                <input type="file" id="file-upload" name="files[]" multiple accept="image/*" class="file-input">
+                                            </div>
+                                            <div class="file-preview" id="file-preview"></div>
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                <div class="contact-card">
-                                    <div class="contact-icon">
-                                        <i class="fas fa-clock"></i>
-                                    </div>
-                                    <div class="contact-details">
-                                        <h4>Öffnungszeiten</h4>
-                                        <p>Mo - Fr: 9:00 - 18:00 Uhr<br>Sa: 10:00 - 14:00 Uhr</p>
+                                <div class="form-field full-width">
+                                    <label for="message-sell">Zusätzliche Informationen</label>
+                                    <textarea id="message-sell" name="message" rows="4"></textarea>
+                                </div>
+                                
+                                <div class="form-field full-width">
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="privacy-sell" name="privacy" required>
+                                        <label for="privacy-sell">Ich habe die <a href="#datenschutz">Datenschutzbestimmungen</a> gelesen und akzeptiert.*</label>
                                     </div>
                                 </div>
-                            </div>
+                                
+                                <div class="form-field submit-field">
+                                    <button type="submit" class="submit-btn">Fahrzeug anbieten</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -1334,5 +1680,298 @@
         }
     });
     </script>
+    <!-- JavaScript für das Kontaktformular - vollständiger Code -->
+<script>
+     document.addEventListener('DOMContentLoaded', function() {
+        // Toggle zwischen Kauf- und Verkaufsformular
+        const buyToggle = document.getElementById('buy-toggle');
+        const sellToggle = document.getElementById('sell-toggle');
+        const buyForm = document.getElementById('buy-form');
+        const sellForm = document.getElementById('sell-form');
+        
+        buyToggle.addEventListener('change', function() {
+            if (this.checked) {
+                buyForm.style.display = 'block';
+                sellForm.style.display = 'none';
+            }
+        });
+        
+        sellToggle.addEventListener('change', function() {
+            if (this.checked) {
+                buyForm.style.display = 'none';
+                sellForm.style.display = 'block';
+            }
+        });
+    });
+        
+        // Datei-Upload Funktionalität
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-upload');
+        const filePreview = document.getElementById('file-preview');
+        
+        // Drag & Drop Effekte
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('drag-over');
+        });
+        
+        uploadArea.addEventListener('dragleave', function() {
+            this.classList.remove('drag-over');
+        });
+        
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('drag-over');
+            handleFiles(e.dataTransfer.files);
+        });
+        
+        uploadArea.addEventListener('click', function() {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', function() {
+            handleFiles(this.files);
+        });
+        
+        // Dateien verarbeiten und Vorschau anzeigen
+        function handleFiles(files) {
+            if (!files || files.length === 0) return;
+            
+            // Maximale Anzahl an Dateien prüfen (max 6)
+            if (files.length > 6) {
+                alert('Bitte maximal 6 Bilder auswählen.');
+                return;
+            }
+            
+            // Aktuelle Anzahl der Vorschaubilder prüfen
+            const currentFiles = filePreview.querySelectorAll('.file-item').length;
+            if (currentFiles + files.length > 6) {
+                alert(`Sie können maximal 6 Bilder hochladen. Sie haben bereits ${currentFiles} ausgewählt.`);
+                return;
+            }
+            
+            // Dateien durchlaufen und prüfen
+            Array.from(files).forEach(file => {
+                // Dateiformat prüfen
+                if (!file.type.match('image.*')) {
+                    alert(`Die Datei "${file.name}" ist kein Bild. Bitte nur Bilder hochladen.`);
+                    return;
+                }
+                
+                // Dateigröße prüfen (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert(`Die Datei "${file.name}" ist zu groß. Maximale Größe: 5MB.`);
+                    return;
+                }
+                
+                // Datei-Element erstellen
+                createFilePreview(file);
+            });
+        }
+        
+        // Vorschaubild erstellen
+        function createFilePreview(file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                // Container für Vorschau erstellen
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.dataset.filename = file.name;
+                
+                // Bild erstellen
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.alt = file.name;
+                
+                // Löschen-Button erstellen
+                const removeBtn = document.createElement('div');
+                removeBtn.className = 'file-remove';
+                removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                
+                // Event-Listener für Löschen-Button
+                removeBtn.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    fileItem.remove();
+                    
+                    // Datei aus dem Datei-Input entfernen
+                    const newFileList = removeFileFromInput(file.name);
+                    updateFileInput(newFileList);
+                });
+                
+                // Elemente zum Container hinzufügen
+                fileItem.appendChild(img);
+                fileItem.appendChild(removeBtn);
+                
+                // Container zur Vorschau hinzufügen
+                filePreview.appendChild(fileItem);
+            };
+            
+            // Datei als Data-URL lesen (für Vorschau)
+            reader.readAsDataURL(file);
+        }
+        
+        // Datei aus dem Input-Feld entfernen
+        function removeFileFromInput(filename) {
+            const dt = new DataTransfer();
+            const files = fileInput.files;
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (file.name !== filename) {
+                    dt.items.add(file);
+                }
+            }
+            
+            return dt.files;
+        }
+        
+        // FileList im Input-Feld aktualisieren
+        function updateFileInput(newFileList) {
+            fileInput.files = newFileList;
+        }
+        
+        // Formularvalidierung
+        const contactFormBuy = document.getElementById('contactFormBuy');
+        const contactFormSell = document.getElementById('contactFormSell');
+        
+        if (contactFormBuy) {
+            contactFormBuy.addEventListener('submit', function(e) {
+                const name = document.getElementById('name-buy');
+                const email = document.getElementById('email-buy');
+                const message = document.getElementById('message-buy');
+                const privacy = document.getElementById('privacy-buy');
+                
+                let isValid = true;
+                
+                // Einfache Validierung
+                if (name.value.trim() === '') {
+                    isValid = false;
+                    highlightField(name);
+                }
+                
+                if (email.value.trim() === '' || !isValidEmail(email.value)) {
+                    isValid = false;
+                    highlightField(email);
+                }
+                
+                if (message.value.trim() === '') {
+                    isValid = false;
+                    highlightField(message);
+                }
+                
+                if (!privacy.checked) {
+                    isValid = false;
+                    highlightField(privacy);
+                }
+                
+                if (!isValid) {
+                    e.preventDefault();
+                    alert('Bitte füllen Sie alle erforderlichen Felder korrekt aus.');
+                }
+            });
+        }
+        
+        if (contactFormSell) {
+            contactFormSell.addEventListener('submit', function(e) {
+                const requiredFields = [
+                    'name-sell',
+                    'email-sell',
+                    'phone-sell',
+                    'make-sell',
+                    'model-sell',
+                    'year-sell',
+                    'mileage-sell',
+                    'fuel-sell',
+                    'transmission-sell',
+                    'vin-sell',
+                    'condition-sell'
+                ];
+                
+                let isValid = true;
+                
+                // Alle Pflichtfelder prüfen
+                requiredFields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        highlightField(field);
+                    }
+                });
+                
+                // E-Mail-Format prüfen
+                const email = document.getElementById('email-sell');
+                if (email.value.trim() === '' || !isValidEmail(email.value)) {
+                    isValid = false;
+                    highlightField(email);
+                }
+                
+                // Datenschutz-Checkbox prüfen
+                const privacy = document.getElementById('privacy-sell');
+                if (!privacy.checked) {
+                    isValid = false;
+                    highlightField(privacy);
+                }
+                
+                // VIN-Format prüfen (17 Zeichen)
+                const vin = document.getElementById('vin-sell');
+                if (vin.value.trim().length !== 17) {
+                    isValid = false;
+                    highlightField(vin);
+                    alert('Die Fahrgestellnummer (VIN) muss 17 Zeichen lang sein.');
+                }
+                
+                if (!isValid) {
+                    e.preventDefault();
+                    alert('Bitte füllen Sie alle erforderlichen Felder korrekt aus.');
+                }
+            });
+        }
+        
+        // Validierungsfunktionen
+        function isValidEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+        
+        function highlightField(field) {
+            field.style.borderColor = '#ff3860';
+            
+            field.addEventListener('input', function() {
+                field.style.borderColor = '#ddd';
+            }, { once: true });
+        }
+        
+        // FormSubmit für Dateien anpassen
+        if (contactFormSell) {
+            contactFormSell.addEventListener('submit', function(e) {
+                // Überprüfen, ob Dateien hochgeladen wurden
+                const files = fileInput.files;
+                
+                if (files.length > 0) {
+                    // FormSubmit unterstützt Datei-Uploads nicht direkt
+                    // Alternativ können die Dateien als Base64 gesendet werden
+                    
+                    // Hinweis: Für echte Datei-Uploads wäre ein anderer Dienst oder
+                    // ein eigener Backend-Endpunkt notwendig
+                    
+                    const fileNames = Array.from(files).map(file => file.name).join(', ');
+                    
+                    // Erstelle ein verstecktes Feld mit den Dateinamen
+                    const fileNamesInput = document.createElement('input');
+                    fileNamesInput.type = 'hidden';
+                    fileNamesInput.name = 'uploaded_files';
+                    fileNamesInput.value = fileNames;
+                    
+                    contactFormSell.appendChild(fileNamesInput);
+                    
+                    // Hinweis: Hier könnte ein Hinweis eingebaut werden, dass die Dateien
+                    // separat per E-Mail gesendet werden müssen
+                    alert('Bitte beachten Sie: Zur besseren Übermittlung der Bilder werden wir Sie nach dem Absenden des Formulars kontaktieren.');
+                }
+            });
+        }
+    
+</script>
 </body>
 </html>
