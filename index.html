@@ -388,12 +388,16 @@
             padding: 0 2rem;
             position: relative;
             z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Zentriert alle Inhalte horizontal */
         }
         
         .contact-header {
-            left: 50%;
+            
             text-align: center;
             margin-bottom: 4rem;
+            width: 80%;
         }
 
         .contact-header p{
@@ -893,75 +897,226 @@
 
         /* Footer */
         .footer {
-            background-color: #1a1a1a;
-            color: white;
-            padding: 4rem 10% 2rem;
-        }
+    background-color: #000000;
+    color: #e0e0e0;
+    width: 100%;
+    padding: 2rem 0 1rem;
+    position: relative;
+}
 
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
+/* Footer-Container */
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto; /* Zentriert den Container */
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+    
+    /* Footer-Spalten mit fester Breite */
+    .footer-column {
+        width: 100%;
+    }
+    
+    /* Linke Spalte: Branding */
+    .footer-branding {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Links ausrichten */
+        flex: 1;
+        text-align: left;
+    }
+    
+    .footer-logo {
+        margin-bottom: 0.8rem;
+    }
+    
+    .footer-logo img {
+        max-width: 150px;
+        height: auto;
+    }
+    
+    .footer-slogan {
+        font-style: italic;
+        color: #b0b0b0;
+        line-height: 1.3;
+        font-size: 0.9rem;
+    }
+    
+    /* Mittlere Spalte: Kontakt */
+    .footer-contact {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Mittig ausrichten */
+        flex: 1;
+        text-align: center;
+    }
+    
+    .footer-contact h4 {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        color: #ffffff;
+        position: relative;
+        padding-bottom: 0.4rem;
+    }
+    
+    .footer-contact h4::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30px;
+        height: 2px;
+        background-color: #0047AB;
+    }
+    
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+    
+    .contact-item {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Zentrale Ausrichtung */
+    }
+    
+    .contact-item i {
+        width: 16px;
+        margin-right: 0.7rem;
+        color: #0047AB;
+        font-size: 0.9rem;
+    }
+    
+    .contact-item p {
+        margin: 0;
+        line-height: 1.3;
+        font-size: 0.9rem;
+    }
+    
+    /* Rechte Spalte: Rechtliches */
+    .footer-legal {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end; /* Rechts ausrichten */
+        flex: 1;
+        text-align: right;
+    }
+    
+    .footer-legal h4 {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        color: #ffffff;
+        position: relative;
+        padding-bottom: 0.4rem;
+    }
+    
+    .footer-legal h4::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        width: 30px;
+        height: 2px;
+        background-color: #0047AB;
+    }
+    
+    .legal-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        align-items: flex-end; /* Rechts ausrichten */
+    }
+    
+    .legal-link {
+        color: #e0e0e0;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        display: inline-block;
+        font-size: 0.9rem;
+    }
+    
+    .legal-link:hover {
+        color: #0047AB;
+    }
+    
+    /* Copyright-Zeile unten */
+    .footer-bottom {
+        text-align: center;
+        padding-top: 1.5rem;
+        margin-top: 1.5rem;
+        border-top: 1px solid #333;
+        font-size: 0.8rem;
+        color: #888;
+    }
+    
+    /* Responsive Design - mit Beibehaltung der Ausrichtung so lange wie möglich */
+    @media screen and (max-width: 900px) {
+        .footer-container {
+            flex-direction: row; /* Beibehalten der horizontalen Anordnung */
+            gap: 1rem;
         }
-
+        
+        .footer-column {
+            flex: 1;
+        }
+        
         .footer-logo img {
-            height: 60px;
-            margin-bottom: 1rem;
+            max-width: 120px;
         }
-
-        .footer-logo p {
-            color: #ccc;
-            line-height: 1.6;
-        }
-
-        .footer-links h4 {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .footer-links h4::after {
-            content: '';
-            position: absolute;
-            bottom: -7px;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: #0047AB;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            color: #ccc;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #0047AB;
-        }
-
-        .footer-contact p {
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            color: #ccc;
-        }
-
-        .footer-bottom {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #333;
-            text-align: center;
+        
+        .footer-contact h4, 
+        .footer-legal h4 {
             font-size: 0.9rem;
-            color: #888;
         }
+        
+        .contact-item p,
+        .footer-slogan,
+        .legal-link {
+            font-size: 0.8rem;
+        }
+    }
+    
+    @media screen and (max-width: 768px) {
+        .footer-container {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1.2rem;
+        }
+        
+        .footer-branding,
+        .footer-legal {
+            align-items: center;
+            text-align: center;
+        }
+        
+        .footer-legal h4::after {
+            left: 50%;
+            transform: translateX(-50%);
+            margin-left: 0;
+        }
+        
+        .legal-links {
+            align-items: center;
+        }
+    }
+    
+    @media screen and (max-width: 480px) {
+        .footer {
+            padding: 1.5rem 0 0.8rem;
+        }
+        
+        .footer-container {
+            padding: 0 1rem;
+        }
+    }
 
         /* Animations */
         @keyframes fadeUp {
@@ -1301,7 +1456,7 @@
                 </div>
                 <!-- Gemeinsamer Container für Kontaktformular und Infos -->
                 <div class="contact-form-container">
-                    <div class="form-info-wrapper">
+                    
                         <!-- Kontaktformular - Kaufen (Standard) -->
                         <div class="form-wrapper" id="buy-form">
                             <h3 class="form-title">Fahrzeug kaufen</h3>
@@ -1515,47 +1670,55 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer" id="contact">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="/api/placeholder/200/80" alt="Richard Lawrik Automobile Logo">
-                <p>Richard Lawrik Automobile steht für Exklusivität, Qualität und erstklassigen Service. Kontaktieren Sie uns noch heute für Ihr Traumfahrzeug.</p>
+    <footer class="footer" id="footer">
+        <div class="footer-container">
+            <!-- Linke Spalte: Logo und Slogan -->
+            <div class="footer-column footer-branding">
+                <div class="footer-logo">
+                    <img src="/richard_lawrick-2.jpg" alt="Richard Lawrik Automobile Logo">
+                </div>
+                <p class="footer-slogan">Exklusive Fahrzeuge für höchste Ansprüche</p>
             </div>
-            <div class="footer-links">
-                <h4>Navigation</h4>
-                <ul>
-                    <li><a href="#home">Startseite</a></li>
-                    <li><a href="#about">Über uns</a></li>
-                    <li><a href="#cars">Fahrzeuge</a></li>
-                    <li><a href="#contact">Kontakt</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Services</h4>
-                <ul>
-                    <li><a href="#">Fahrzeugverkauf</a></li>
-                    <li><a href="#">Finanzierung</a></li>
-                    <li><a href="#">Garantieverlängerung</a></li>
-                    <li><a href="#">Fahrzeugankauf</a></li>
-                </ul>
-            </div>
-            <div class="footer-contact">
+            
+            <!-- Mittlere Spalte: Kontaktdaten (kompakt) -->
+            <div class="footer-column footer-contact">
                 <h4>Kontakt</h4>
-                <p>Mustermann-Straße 123</p>
-                <p>44137 Dortmund</p>
-                <p>Tel: +49 (0) 231 12345678</p>
-                <p>Email: info@richardlawrik.de</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>Mustermann-Str. 123, 44137 Dortmund</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <p>+49 (0) 231 12345678</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>info@richardlawrik.de</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Rechte Spalte: Rechtliche Links -->
+            <div class="footer-column footer-legal">
+                <h4>Rechtliches</h4>
+                <div class="legal-links">
+                    <a href="/datenschutz" class="legal-link">Datenschutz</a>
+                    <a href="/impressum" class="legal-link">Impressum</a>
+                </div>
             </div>
         </div>
+        
+        <!-- Copyright-Zeile -->
         <div class="footer-bottom">
-            <p>&copy; 2025 Richard Lawrik Automobile. Alle Rechte vorbehalten.</p>
+            <p>&copy; 2025 Richard Lawrik Automobile</p>
         </div>
     </footer>
 
